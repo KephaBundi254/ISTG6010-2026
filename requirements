@@ -1,1 +1,181 @@
+Designing a Software Solution for Battleship
+Kepha Nyanumba Bundi.
+La roche University, Pittsburgh, PA.
+ISTG6010-01-OBJECT ORIENTED SYSTEMS.
+Professor: Dustin Updyke
+Spring 2026.
+ 
+1.	Introduction
+The design of effective software systems requires a structured approach to requirements engineering, combining user-centered design with iterative development principles. This assignment applies Agile methodology, specifically user story modeling, to the development of a digital Battleship game.
+Battleship, traditionally a two-player strategy game, presents an opportunity to explore how manual gameplay can be transformed into a robust, rule-driven software system. This work focuses on requirements elicitation, analysis, and specification, forming the foundation for future design and implementation phases within the Software Development Life Cycle (SDLC).
+2. Requirements Gathering via Interview
+2.1 Interview Overview
+A mock interview was conducted with a domain expert to extract core gameplay mechanics, user needs, and potential system constraints. This aligns with requirements elicitation techniques in software engineering, where stakeholder input informs system functionality.
+2.2 Interview Questions and Responses
+1. What is the primary objective of the game?
+To locate and sink all opponent ships before losing one’s own fleet.
+2. Who are the target users?
+Primarily two players, ranging from beginners to experienced users. A digital system may also support single-player (AI) modes.
+3. What are the essential game components?
+•	Two grids per player (own board + tracking board) 
+•	A fleet of ships of varying sizes 
+•	Turn-based attack mechanism 
+4. What rules govern ship placement?
+Ships must be placed horizontally or vertically, within grid boundaries, and cannot overlap.
+5. How does gameplay progress?
+Players alternate turns selecting coordinates. The opponent provides feedback: hit or miss.
+6. How is game success determined?
+A player wins when all opponent ships are sunk.
+7. What issues arise in the physical game?
+•	Human error in tracking moves 
+•	Miscommunication of hits/misses 
+•	Incorrect ship placement 
+8. What features are essential in a digital system?
+•	Automated rule enforcement 
+•	Real-time feedback 
+•	Visual clarity 
+•	Error prevention 
+9. How should invalid actions be handled?
+They should be prevented proactively, with immediate feedback.
+10. What enhancements are possible in software?
+•	AI opponent 
+•	Visual and audio feedback 
+•	Game analytics (accuracy, performance) 
+2.3 Critical Analysis of Interview Findings
+While the interview provides valuable foundational insights, several limitations and assumptions must be acknowledged:
+•	Single-source bias: The requirements are derived from one expert, limiting diversity of perspectives. 
+•	Implicit assumptions: The model assumes a two-player system, potentially restricting scalability to AI or multiplayer modes. 
+•	Lack of edge-case discussion: Exceptional scenarios (e.g., disconnections, invalid repeated inputs) were not explored. 
+From a design perspective, the findings emphasize:
+•	Functional accuracy through strict rule enforcement 
+•	Usability aligned with HCI principles (minimizing cognitive load) 
+•	Error prevention, a core usability heuristic (Nielsen, 1994) 
+These insights inform both functional and non-functional requirements.
+3. Requirements Specification
+3.1 Functional Requirements
+The system shall:
+•	Allow players to place ships according to defined rules 
+•	Enable turn-based coordinate selection 
+•	Provide immediate feedback (hit/miss/sunk) 
+•	Track all player actions 
+•	Detect win conditions 
+•	Allow game restart
+3.2 Non-Functional Requirements
+To ensure system quality, the following constraints are defined:
+Usability
+•	New users should understand gameplay within 5 minutes 
+•	Interface must be intuitive and visually clear 
+Performance
+•	System response time ≤ 1 second per action 
+Reliability
+•	Game state must persist accurately throughout gameplay 
+Scalability
+•	System should support future extensions (e.g., AI, multiplayer) 
+Security 
+•	Prevent manipulation of game state (e.g., duplicate moves)
+
+
+
+
+
+
+
+
+
+4. User Stories with Acceptance Criteria
+User stories are structured according to Agile principles (Beck et al., 2001), forming an initial product backlog.
+(a)	High Priority User Stories (Core Gameplay)
+User Story 1: Ship Placement
+As a player, I want to place ships on a grid so that I can prepare for gameplay.
+Acceptance Criteria:
+•	Ships can only be placed horizontally or vertically 
+•	Ships cannot overlap 
+•	Ships must remain within grid boundaries 
+•	The system confirms valid placement before proceeding
+User Story 2: Attack Mechanism
+As a player, I want to select coordinates to attack so that I can locate opponent ships.
+Acceptance Criteria:
+•	Player can select exactly one coordinate per turn 
+•	System responds within ≤1 second 
+•	Result is displayed as “Hit” or “Miss” 
+•	Selected coordinate cannot be reused
+User Story 3: Turn Management
+As a player, I want turns to alternate automatically so that gameplay is fair.
+Acceptance Criteria:
+•	Only one player is active at a time 
+•	System clearly displays active player 
+•	Turn switches only after valid move
+(b)	Medium Priority (Game Feedback & Tracking)
+User Story 4: Feedback System
+As a player, I want immediate feedback so that I understand the result of my actions.
+Acceptance Criteria:
+•	“Hit” or “Miss” displayed within ≤1 second 
+•	“Ship Sunk” notification displayed when applicable 
+•	Feedback is visually distinct
+User Story 5: Tracking Grid
+As a player, I want a tracking grid so that I can monitor my previous moves.
+Acceptance Criteria:
+•	All moves are recorded and visible 
+•	Hits and misses are clearly distinguished 
+•	Duplicate selections are prevented
+(c)	Low Priority (Enhancements)
+User Story 6: Game Restart
+As a player, I want to restart the game so that I can play again.
+Acceptance Criteria:
+•	Restart resets all game data 
+•	Game returns to initial setup state
+User Story 7: User Guidance
+As a new player, I want instructions so that I can learn the game quickly.
+Acceptance Criteria:
+•	Instructions available before gameplay 
+•	Instructions explain rules and controls clearly 
+5. Edge Cases and Constraints
+To ensure robustness, the system must handle:
+•	Duplicate coordinate selection attempts 
+•	Invalid ship placements 
+•	Rapid repeated inputs (debouncing required) 
+•	Interrupted gameplay sessions 
+These considerations align with defensive design principles in software engineering.
+
+6. System Perspective (High-Level Design)
+The system can be conceptualized as three main components:
+1.	User Interface Layer 
+o	Displays grids and feedback 
+o	Handles user interaction 
+2.	Game Logic Engine 
+o	Enforces rules 
+o	Processes moves 
+o	Determines outcomes 
+3.	State Management System 
+o	Tracks game progress 
+o	Stores ship positions and attack history 
+This modular approach supports maintainability and future scalability.
+7. Alignment with Agile and SDLC
+The defined user stories form the initial product backlog, which can be implemented iteratively through Agile sprints:
+•	Sprint 1: Core gameplay (placement, attack, turns) 
+•	Sprint 2: Feedback and tracking 
+•	Sprint 3: Enhancements and UI improvements 
+This iterative model supports continuous testing, validation, and refinement.
+8. Conclusion
+This analysis demonstrates the transformation of a traditional board game into a structured software system through rigorous requirements engineering. By integrating user-centered design, Agile principles, and system-level thinking, the proposed solution ensures both functional correctness and a high-quality user experience.
+The inclusion of prioritized user stories, measurable acceptance criteria, and non-functional requirements establishes a strong foundation for implementation, testing, and future system expansion.
+ 
+9. References
+Beck, K., et al. (2001). Manifesto for Agile Software Development.
+Nielsen, J. (1994). Usability Engineering. Morgan Kaufmann.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
